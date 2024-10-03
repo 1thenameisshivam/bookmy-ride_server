@@ -7,12 +7,25 @@ const userSchema = mongoose.Schema(
     userName: {
       type: String,
       required: [true, "username is required"],
+      minLength: [3, "minimum length must be greater or equal to 3"],
+      maxLength: [100, "maximum length must be lesser or equal to 100"],
+      lowercase: true,
       trim: true,
+      validate: {
+        validator: function (value) {
+          // This ensures the string contains only alphabetic characters and spaces
+          return validator.isAlpha(value, "en-US", { ignore: " " });
+        },
+        message: "Username should contain only alphabetic characters",
+      },
     },
     email: {
       type: String,
+      lowercase: true,
       required: [true, "Email is required"],
       trim: true,
+      minLength: [7, "minimum length must be greater or equal to 7"],
+      maxLength: [100, "maximum length must be lesser or equal to 100"],
       unique: [true, "user already registered"],
       validate: {
         validator: validator.isEmail,
@@ -22,7 +35,8 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       required: [true, "Password is required"],
-      minlength: [8, "Password must be at least 8 characters"],
+      minLength: [8, "Password must be at least 8 characters"],
+      maxLength: [100, "maximum length must be lesser or equal to 100"],
       validate: {
         validator: function (value) {
           return validator.isStrongPassword(value, {
@@ -41,6 +55,15 @@ const userSchema = mongoose.Schema(
     place: {
       type: String,
       required: [true, "place is required"],
+      minLength: [4, "minimum length must be greater or equal to 3"],
+      maxLength: [70, "maximum length must be lesser or equal to 70"],
+      validate: {
+        validator: function (value) {
+          // This ensures the string contains only alphabetic characters and spaces
+          return validator.isAlpha(value, "en-US", { ignore: " " });
+        },
+        message: "place should contain only alphabetic characters",
+      },
     },
     type: {
       type: String,

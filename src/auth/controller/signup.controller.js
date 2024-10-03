@@ -4,7 +4,7 @@ import User from "../model/user.model.js";
 export const signup = async (req, res) => {
   try {
     signupValidation(req); // inpu request validation
-    const user = await User.find({ email: req.email });
+    const user = await User.find({ email: req.body.email });
     if (user.length > 0) {
       throw new Error("user already exist");
     }
@@ -19,6 +19,6 @@ export const signup = async (req, res) => {
     res.cookie("token", token);
     res.status(200).json({ message: "user created", status: "sucess" });
   } catch (err) {
-    res.status(401).json({ message: err.message, status: " false" });
+    res.status(409).json({ message: err.message, status: " false" });
   }
 };
