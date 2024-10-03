@@ -2,7 +2,11 @@ import express from "express";
 import dbConnection from "./src/config/dbConnection.js";
 import mongoose from "mongoose";
 import { PORT } from "./src/utils/constant.js";
+import userRouter from "./src/auth/routes/user.routes.js";
 const app = express();
+
+app.use(express.json());
+app.use("/user", userRouter);
 
 dbConnection()
   .then(() => {
