@@ -11,3 +11,17 @@ export const signupValidation = (req) => {
     throw new Error("mislinuous activity tracked");
   }
 };
+
+export const loginValidation = (req) => {
+  const { email, password } = req.body;
+  if (!email || !password) {
+    throw new Error("all fields are requred");
+  }
+  const allowed = ["email", "password"];
+  const isAllowed = Object.keys(req.body).every((value) =>
+    allowed.includes(value)
+  );
+  if (!isAllowed) {
+    throw new Error("mislinuous activity tracked");
+  }
+};

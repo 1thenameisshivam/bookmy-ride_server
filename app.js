@@ -1,4 +1,4 @@
-import express, { urlencoded } from "express";
+import express from "express";
 import dbConnection from "./src/config/dbConnection.js";
 import mongoose from "mongoose";
 import { PORT } from "./src/utils/constant.js";
