@@ -13,7 +13,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Email is required"],
       trim: true,
-      unique: true,
+      unique: [true, "user already registered"],
       validate: {
         validator: validator.isEmail,
         message: "Please enter a valid email",
@@ -83,4 +83,6 @@ userSchema.methods.generateToken = async function () {
   return token;
 };
 
-export default mongoose.model("User", userSchema);
+const User = mongoose.model("User", userSchema);
+
+export default User;
