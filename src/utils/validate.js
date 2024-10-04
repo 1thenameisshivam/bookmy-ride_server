@@ -25,3 +25,50 @@ export const loginValidation = (req) => {
         throw new Error("Unwanted Data Received");
     }
 };
+
+export const tripValidation = (req) => {
+    const {
+        title,
+        description,
+        duration,
+        startDate,
+        endDate,
+        destination,
+        price,
+        availableSeats,
+        
+    } = req.body;
+    if (
+        !title ||
+        !description ||
+        !duration ||
+        !startDate ||
+        !endDate ||
+        !destination ||
+        !price ||
+        !availableSeats
+    ) {
+        throw new Error("all fields are required");
+    }
+    const allowed = [
+        "title",
+        "description",
+        "duration",
+        "startDate",
+        "endDate",
+        "destination",
+        "price",
+        "availableSeats",
+        
+    ];
+    const isAllowed = Object.keys(req.body).every((value) =>
+        allowed.includes(value)
+    );
+    if (!isAllowed) {
+        throw new Error("Unwanted Data Received");
+    }
+    if(!req.file)
+    {
+        throw new Error("Image is required");
+    }
+};
