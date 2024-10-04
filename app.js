@@ -3,9 +3,12 @@ import dbConnection from "./src/config/dbConnection.js";
 import mongoose from "mongoose";
 import { PORT } from "./src/utils/constant.js";
 import userRouter from "./src/auth/routes/user.routes.js";
+import cors from "cors";
+import { FRONTEND_URL } from "./src/utils/constant.js";
 import cookieParser from "cookie-parser";
 const app = express();
 
+app.use(cors({ origin: FRONTEND_URL, credentials: true }));
 app.use(express.json({ limit: "16kb" }));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(cookieParser());

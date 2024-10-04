@@ -5,7 +5,7 @@ export const login = async (req, res) => {
     loginValidation(req);
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (user.length == 0) {
+    if (!user) {
       throw new Error("incorrect credential");
     }
     const isCorrectPassword = await user.validatePassword(password);
@@ -18,10 +18,10 @@ export const login = async (req, res) => {
     }
     res.cookie("token", token);
     res.status(200).json({
-      sucess: true,
+      status: true,
       message: "user logged in sucessfully",
     });
   } catch (err) {
-    res.status(401).json({ sucess: false, message: err.message });
+    res.status(401).json({ status: false, message: err.message });
   }
 };
