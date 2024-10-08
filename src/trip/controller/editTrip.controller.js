@@ -1,8 +1,10 @@
 import cloudinaryUpload from "../../utils/cloudinaryImageUpload.js";
+import { extractPublicId } from "cloudinary-build-url";
 import Trip from "../model/trips.model.js";
 import path from "node:path";
+import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
-import { tripValidation} from "../../utils/validate.js";
+import { tripValidation } from "../../utils/validate.js";
 export const editTrip = async (req, res) => {
     let filePath;
     try {
@@ -21,6 +23,21 @@ export const editTrip = async (req, res) => {
                 "__dirname/../public/uploads/images/" + filename
             );
             const format = image.mimetype.split("/")[1];
+            const public_id = extractPublicId(trip.photoUrl);
+            console.log("public id is :-", public_id);
+            //Delete from the cloudinary
+            const destroyResponse = await cloudinary.uploader.destroy(
+                public_id,
+                { resource_type: "image" }
+            );
+            if (destroyResponse.result !== "ok") {
+                console.error(
+                    "Failed to delete old image from Cloudinary:",
+                    destroyResponse
+                );
+            } else {
+                console.log("Old image deleted:", destroyResponse);
+            }
             const uploadResponse = await cloudinaryUpload(
                 filePath,
                 filename,
