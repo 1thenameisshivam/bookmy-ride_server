@@ -42,6 +42,7 @@ export const createTrip = async (req, res) => {
 
     res.status(200).json({
       message: "Trip created",
+      status: true,
     });
   } catch (error) {
     res.status(409).json({ message: error.message, status: false });

@@ -17,7 +17,7 @@ const isAuthenticated = async (req, res, next) => {
     req.user = user;
     next();
   } catch (err) {
-    res.status(401).json({ message: err.message, status: " false" });
+    res.status(401).json({ message: err.message, status: false });
   }
 };
 

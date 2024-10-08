@@ -5,9 +5,9 @@ const isAuthorised = (req, res, next) => {
     }
     res
       .status(401)
-      .json({ message: "Access denied. Admins only.", status: " false" });
+      .json({ message: "Access denied. Admins only.", status: false });
   } catch (err) {
-    res.status(401).json({ message: err.message, status: " false" });
+    res.status(401).json({ message: err.message, status: false });
   }
 };
 
