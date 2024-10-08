@@ -36,7 +36,6 @@ export const tripValidation = (req) => {
         destination,
         price,
         availableSeats,
-        
     } = req.body;
     if (
         !title ||
@@ -59,7 +58,6 @@ export const tripValidation = (req) => {
         "destination",
         "price",
         "availableSeats",
-        
     ];
     const isAllowed = Object.keys(req.body).every((value) =>
         allowed.includes(value)
@@ -67,8 +65,7 @@ export const tripValidation = (req) => {
     if (!isAllowed) {
         throw new Error("Unwanted Data Received");
     }
-    if(!req.file)
-    {
+    if (!req.file) {
         throw new Error("Image is required");
     }
 };
