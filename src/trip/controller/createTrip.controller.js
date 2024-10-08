@@ -3,6 +3,10 @@ import Trip from "../model/trips.model.js";
 import cloudinaryUpload from "../../utils/cloudinaryImageUpload.js";
 import path from "node:path";
 import fs from "fs";
+import {
+  generateSeatsFor2x1,
+  generateSeatsFor3x1,
+} from "../../utils/generateSeat.js";
 export const createTrip = async (req, res) => {
   let filePath;
   try {
@@ -22,9 +26,17 @@ export const createTrip = async (req, res) => {
 
     req.body.destination = JSON.parse(req.body.destination);
 
+    let seats;
+    if (req.body.busType === "3x1") {
+      seats = generateSeatsFor3x1();
+    } else if (req.body.busType === "2x1") {
+      seats = generateSeatsFor2x1();
+    }
+
     const newTrip = await new Trip({
       ...req.body,
       photoUrl: secure_url,
+      seats,
     });
     await newTrip.save();
 
@@ -34,13 +46,7 @@ export const createTrip = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message, status: false });
   } finally {
-    // Cleanup
-    if (filePath) {
-      try {
-        await fs.promises.unlink(filePath);
-      } catch (err) {
-        console.log(err);
-      }
-    }
+    // Cleanups
+    await fs.promises.unlink(filePath);
   }
 };
