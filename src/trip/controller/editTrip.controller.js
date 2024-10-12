@@ -70,13 +70,5 @@ export const editTrip = async (req, res) => {
     } catch (error) {
         console.log("Error Occured in the catch block !!");
         res.status(409).json({ message: error.message, status: false });
-    } /* finally {
-        if (filePath) {
-            try {
-                await fs.promises.unlink(filePath);
-            } catch (err) {
-                console.error("Failed to delete temporary file:", err);
-            }
-        }
-    } */
+    }
 };

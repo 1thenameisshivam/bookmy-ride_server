@@ -6,6 +6,7 @@ import isAuthorised from "../../middleware/isAuthorised.js";
 import isAuthenticated from "../../middleware/isAuthenticated.js";
 import { getTrips } from "../controller/getTrips.controller.js";
 import { singleTrip } from "../controller/singleTrip.js";
+import {viewTrip} from "../controller/viewTrip.js";
 const tripRouter = express.Router();
 tripRouter.post(
   "/createTrip",
@@ -17,6 +18,7 @@ tripRouter.patch(
   [isAuthenticated, isAuthorised, upload.single("image")],
   editTrip
 );
+tripRouter.get("/viewTrip/:id",isAuthenticated, viewTrip);
 tripRouter.get("/", getTrips);
 tripRouter.get("/:id", singleTrip);
 export default tripRouter;
