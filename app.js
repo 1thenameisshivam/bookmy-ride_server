@@ -21,36 +21,39 @@ app.use("/trip", tripRouter);
 app.use("/book", bookingRouter);
 const clearExpiredReservations = async () => {
   const currentTime = new Date();
+  console.log("Clearing expired reservations...");
 
   try {
-    // Only find trips with seats that are reserved and where reservationExpiresAt < currentTime
-    const trips = await Trip.find({
-      "seats.reserved": true,
-      "seats.reservationExpiresAt": { $lt: currentTime },
-    });
+    // Find all trips (we'll filter seats in-code due to the 2D array structure)
+    const trips = await Trip.find();
 
     for (const trip of trips) {
       let hasUpdated = false;
 
+      // Iterate over each row in the 2D seats array
       for (const row of trip.seats) {
         row.forEach((seat) => {
+          // Check if reservation is expired
           if (seat.reserved && seat.reservationExpiresAt < currentTime) {
             seat.reserved = false;
             seat.reservedBy = null;
             seat.reservationExpiresAt = null;
-            hasUpdated = true;
+            hasUpdated = true; // Flag to save this trip
           }
         });
       }
 
       if (hasUpdated) {
+        trip.markModified("seats"); // Notify Mongoose of the seats array update
         await trip.save();
+        console.log(`Expired seats cleared in trip: ${trip._id}`);
       }
     }
   } catch (error) {
     console.error("Error clearing expired reservations:", error);
   }
 };
+
 // Run this job every 30 seconds
 setInterval(clearExpiredReservations, 30000);
 
