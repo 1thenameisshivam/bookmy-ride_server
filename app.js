@@ -9,6 +9,7 @@ import cookieParser from "cookie-parser";
 import tripRouter from "./src/trip/routes/trips.routes.js";
 import bookingRouter from "./src/Booking/routes/booking.routes.js";
 import Trip from "./src/trip/model/trips.model.js";
+import events from "events";
 const app = express();
 
 app.use(cors({ origin: FRONTEND_URL, credentials: true }));
@@ -19,6 +20,7 @@ app.use(cookieParser());
 app.use("/user", userRouter);
 app.use("/trip", tripRouter);
 app.use("/book", bookingRouter);
+events.EventEmitter.defaultMaxListeners = 15;
 const clearExpiredReservations = async () => {
   const currentTime = new Date();
   console.log("Clearing expired reservations...");
@@ -70,6 +72,11 @@ dbConnection()
     );
     process.exit(1); // Gracefully exit the server on DB connection failure
   });
+
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("Unhandled Rejection at:", promise, "reason:", reason);
+  // Application-specific logging, throwing an error, or exiting the process can be done here
+});
 
 // Handle graceful shutdown
 process.on("SIGINT", async () => {

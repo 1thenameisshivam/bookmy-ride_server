@@ -8,4 +8,6 @@ export const {
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_KEY,
   CLOUDINARY_API_SECRET,
+  SECRET_KEY,
+  APP_ID,
 } = process.env;
