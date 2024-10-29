@@ -31,6 +31,7 @@ export const varifyPayment = async (req, res) => {
         })
       );
       trip.seats = updatedSeats;
+      trip.availableSeats -= seats.length;
       await trip.save();
 
       // Save payment details in the Payment collection

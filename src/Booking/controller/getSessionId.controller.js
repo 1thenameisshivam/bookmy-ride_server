@@ -7,14 +7,16 @@ Cashfree.XClientSecret = SECRET_KEY;
 Cashfree.XEnvironment = Cashfree.Environment.SANDBOX;
 
 export const getSessionId = async (req, res) => {
-  const { tripId } = req.body;
+  const { tripId, noOfSeats } = req.body;
   try {
     const trip = await Trip.findById(tripId);
     if (!trip) {
       return res.status(404).json({ message: "Trip not found" });
     }
+    const ammount = trip.price * noOfSeats + 50;
+
     const request = {
-      order_amount: trip.price,
+      order_amount: ammount,
       order_currency: "INR",
       customer_details: {
         customer_id: req.user._id, // Use the authenticated user's ID
