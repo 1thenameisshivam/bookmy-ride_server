@@ -94,7 +94,7 @@ const tripSchema = mongoose.Schema(
         },
       ],
     ],
-    busType: { type: String, enum: ["3x1", "2x1"], required: true },
+    busType: { type: String, enum: ["3x2", "2x1", "2x2"], required: true },
   },
   { timestamps: true }
 );

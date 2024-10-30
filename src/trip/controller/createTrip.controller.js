@@ -3,7 +3,8 @@ import Trip from "../model/trips.model.js";
 import cloudinaryUpload from "../../utils/cloudinaryImageUpload.js";
 import {
   generateSeatsFor2x1,
-  generateSeatsFor3x1,
+  generateSeatsFor2x2,
+  generateSeatsFor3x2,
 } from "../../utils/generateSeat.js";
 export const createTrip = async (req, res) => {
   try {
@@ -28,10 +29,12 @@ export const createTrip = async (req, res) => {
     req.body.destination = JSON.parse(req.body.destination);
 
     let seats;
-    if (req.body.busType === "3x1") {
-      seats = generateSeatsFor3x1();
-    } else if (req.body.busType === "2x1") {
+    if (req.body.busType === "2x1") {
       seats = generateSeatsFor2x1();
+    } else if (req.body.busType === "3x2") {
+      seats = generateSeatsFor3x2();
+    } else if (req.body.busType === "2x2") {
+      seats = generateSeatsFor2x2();
     }
 
     const newTrip = await new Trip({
