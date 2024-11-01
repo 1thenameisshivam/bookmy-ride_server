@@ -1,0 +1,11 @@
+import express from "express";
+import isAuthorised from "../../middleware/isAuthorised.js";
+import isAuthenticated from "../../middleware/isAuthenticated.js";
+import {totalRevenue} from "../controller/totalRevenue.controller.js";
+import { totalTrips } from "../controller/totalTripsGenerator.js";
+import { totalActiveUsers } from "../controller/totalUsers.controller.js";
+const adminRouter = express.Router();
+adminRouter.get("/totalRevenue", isAuthenticated, isAuthorised,totalRevenue);
+adminRouter.get("/totalTrips",isAuthenticated, isAuthorised,totalTrips);
+adminRouter.get("/totalActiveUsers",isAuthenticated, isAuthorised,totalActiveUsers);
+export default adminRouter;
