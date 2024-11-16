@@ -54,6 +54,51 @@ const tripSchema = mongoose.Schema(
         message: "Start date must be in the future",
       },
     },
+    Pickup: {
+      type: String,
+      required: [true, "Pickup location is required"],
+      maxLength: [100, "Pickup location must be at most 100 characters"],
+    },
+    drop: {
+      type: String,
+      required: [true, "Drop location is required"],
+      maxLength: [100, "Drop location must be at most 100 characters"],
+    },
+    arrivalTime: {
+      type: String,
+      required: [true, "Arrival time is required"],
+      maxLength: [100, "Arrival time must be at most 100 characters"],
+    },
+    departureTime: {
+      type: String,
+      required: [true, "Departure time is required"],
+      maxLength: [100, "Departure time must be at most 100 characters"],
+    },
+    ac: {
+      type: Boolean,
+      default: false,
+      required: [true, "AC is required"],
+    },
+    meal: {
+      type: String,
+      required: [true, "Meal is required"],
+      maxLength: [200, "Meal must be at most 200 characters"],
+    },
+    accommodation: {
+      type: String,
+      required: [true, "Accommodation is required"],
+      maxLength: [200, "Accommodation must be at most 200 characters"],
+    },
+    activities: {
+      type: String,
+      required: [true, "Activities is required"],
+      maxLength: [200, "Activities must be at most 200 characters"],
+    },
+    expertGuide: {
+      type: String,
+      required: [true, "Expert Guide is required"],
+      maxLength: [200, "Expert Guide must be at most 200 characters"],
+    },
     endDate: {
       type: Date,
       required: [true, "End date is required"],
