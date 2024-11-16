@@ -37,7 +37,7 @@ export const tripValidation = (req) => {
     price,
     availableSeats,
     busType,
-    Pickup,
+    pickup,
     drop,
     arrivalTime,
     departureTime,
@@ -45,8 +45,9 @@ export const tripValidation = (req) => {
     meal,
     accommodation,
     activities,
-    expertGuid,
+    expertGuide,
   } = req.body;
+  console.log("request Body is :->",req.body);
   if (
     !title ||
     !description ||
@@ -57,7 +58,7 @@ export const tripValidation = (req) => {
     !price ||
     !availableSeats ||
     !busType ||
-    !Pickup ||
+    !pickup ||
     !drop ||
     !arrivalTime ||
     !departureTime ||
@@ -65,9 +66,11 @@ export const tripValidation = (req) => {
     !meal ||
     !accommodation ||
     !activities ||
-    !expertGuid
+    !expertGuide
   ) {
+    // console.log(title , description)
     throw new Error("all fields are required");
+    // console.log("Error is :->",error);
   }
   const allowed = [
     "title",
@@ -80,7 +83,7 @@ export const tripValidation = (req) => {
     "availableSeats",
     "seat",
     "busType",
-    "Pickup",
+    "pickup",
     "drop",
     "arrivalTime",
     "departureTime",

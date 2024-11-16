@@ -3,10 +3,10 @@ import User from "../../auth/model/user.model.js";
 export const makeAdmin = async (req, res) => {
     // req.body = JSON.parse(req.body);
     const { userId } = req.body;
-    console.log("User Id is :- ", userId);
+    // console.log("User Id is :- ", userId);
     try {
         const user = await User.findById(userId);
-        console.log("User is :- ", user);
+        // console.log("User is :- ", user);
         if (!user) {
             return res.status(404).json({ message: "User not found" });
         }
