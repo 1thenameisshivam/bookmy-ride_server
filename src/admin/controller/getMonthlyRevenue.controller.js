@@ -20,7 +20,7 @@ export const getMonthlyRevenue = async (req, res) => {
                 totalRevenue: totalRevenueForMonth,
             });
         }
-        console.log("Monthly Revenue is :- ",monthlyRevenue);
+        // console.log("Monthly Revenue is :- ",monthlyRevenue);
         res.status(200).json({
             year: currentYear,
             monthlyRevenue,

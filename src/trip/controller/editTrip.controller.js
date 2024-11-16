@@ -15,9 +15,9 @@ export const editTrip = async (req, res) => {
   try {
     tripValidation(req);
     const trip = await Trip.findById(req.params.id);
-    console.log(trip);
+    // console.log(trip);
     if (!trip) {
-      console.log("Trip Not Found!!");
+      // console.log("Trip Not Found!!");
       throw new Error("Trip not found");
     }
     let secure_url = trip.photoUrl;
@@ -32,7 +32,7 @@ export const editTrip = async (req, res) => {
             ); */
       const format = image.mimetype.split("/")[1];
       const public_id = extractPublicId(trip.photoUrl);
-      console.log("public id is :-", public_id);
+      // console.log("public id is :-", public_id);
       //Delete from the cloudinary
       const destroyResponse = await cloudinary.uploader.destroy(public_id, {
         resource_type: "image",
@@ -70,7 +70,7 @@ export const editTrip = async (req, res) => {
     await trip.save();
     res.status(200).json({ message: "Trip updated successfully" });
   } catch (error) {
-    console.log("Error Occured in the catch block !!");
+    // console.log("Error Occured in the catch block !!");
     res.status(409).json({ message: error.message, status: false });
   }
 };

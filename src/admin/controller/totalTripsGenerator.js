@@ -18,11 +18,11 @@ export const totalTrips = async (req, res) => {
         });
 
         // Fetch trips for the previous month
-        console.log("Current Month Trips are :- ", currentMonthTrips);
+        // console.log("Current Month Trips are :- ", currentMonthTrips);
         const previousMonthTrips = await Trip.countDocuments({
             createdAt: { $gte: previousMonthStart, $lte: previousMonthEnd },
         });
-        console.log("previous months trips is :- ", previousMonthTrips);
+        // console.log("previous months trips is :- ", previousMonthTrips);
         // Calculate the percentage increase or decrease
         const numberChange =
             previousMonthTrips > 0 ? currentMonthTrips - previousMonthTrips : 0;
@@ -32,7 +32,7 @@ export const totalTrips = async (req, res) => {
             availableSeats: { $lt: 1 },
         });
 
-        console.log("Total Trips:", currentMonthTrips);
+        // console.log("Total Trips:", currentMonthTrips);
         // console.log("Percentage Change in Trips:", percentageChange);
 
         res.status(200).json({
