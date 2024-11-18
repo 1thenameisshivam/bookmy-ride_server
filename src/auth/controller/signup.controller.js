@@ -16,7 +16,9 @@ export const signup = async (req, res) => {
     if (!token) {
       throw new Error("somthing internal issue");
     }
-    res.cookie("token", token);
+    res.cookie("token", token ,{
+      secure: true,
+    });
     res.status(200).json({ message: "user created", status: true });
   } catch (err) {
     res.status(409).json({ message: err.message, status: false });
