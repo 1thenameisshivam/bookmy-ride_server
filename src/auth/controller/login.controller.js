@@ -16,9 +16,7 @@ export const login = async (req, res) => {
     if (!token) {
       throw new Error("Some internal issue");
     }
-    res.cookie("token", token, {
-      secure: true,
-    });
+    res.cookie("token", token);
     res.status(200).json({
       status: true,
       message: "user logged in sucessfully",
